@@ -9,10 +9,14 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers();
 builder.Services.AddServices();
 builder.Services.AddSwaggerGen();
+builder.Services.AddJwtExtention(builder.Configuration);
 
 builder.Services.AddDbContext<TopStyleDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("TopStyleDbContext")));
 
 var app = builder.Build();
+
+app.UseJwtExtention();
+
 app.UseRouting();
 app.UseEndpoints(endpoints =>{endpoints.MapControllers();});
 
