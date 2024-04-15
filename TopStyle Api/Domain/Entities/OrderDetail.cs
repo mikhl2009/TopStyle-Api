@@ -7,17 +7,23 @@ namespace TopStyle_Api.Domain.Entities
     {
         [Key]
         public int OrderDetailId { get; set; }
-
+        
+        [Required]
         [ForeignKey("Order")]
         public int OrderId { get; set; }
+        public virtual Order Order { get; set; }
 
+        [Required]
         [ForeignKey("Product")]
         public int ProductId { get; set; }
+        public virtual Product Product { get; set; }
 
         [Required]
         public int Quantity { get; set; }
+
+        [Required]
         public decimal Price { get; set; }
-        public Order Order { get; set; }
-        public Product Product { get; set; }
+
+        public decimal TotalPrice => Price * Quantity;
     }
 }
