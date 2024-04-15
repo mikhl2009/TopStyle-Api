@@ -13,5 +13,10 @@ namespace TopStyle_Api.Core.Interfaces
         Task<bool> DeleteUser(string id);  // It might be more practical to return a bool to indicate success
         Task<ApplicationUser> Register(UserRegisterDTO userRegisterDTO);
         Task<string> Login(UserLoginDTO userLoginDTO);
+        Task <bool> IsUserLoggedIn();
+
+        
+
+        //Task<string> GetUserId();
     }
 }

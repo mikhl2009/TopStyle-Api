@@ -33,6 +33,12 @@ namespace TopStyle_Api.Core.Services
             return await _productRepo.GetProductById(id);
         }
 
+        public async Task<IEnumerable<Product>> GetProductByTitleAsync(string title)
+        {
+            var products = await _productRepo.GetProductByTitleAsync(title);
+            return products;
+        }
+
         public async Task<IEnumerable<Product>> GetProducts()
         {
             return await _productRepo.GetProducts();

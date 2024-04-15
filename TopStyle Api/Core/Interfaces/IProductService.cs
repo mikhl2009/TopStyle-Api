@@ -11,5 +11,6 @@ namespace TopStyle_Api.Core.Interfaces
         Task AddProduct(ProductCreateDTO productCreateDTO);
         Task<Product> UpdateProduct(Product product);
         Task<Product> DeleteProduct(int id);
+        Task<IEnumerable<Product>> GetProductByTitleAsync(string title);
     }
 }

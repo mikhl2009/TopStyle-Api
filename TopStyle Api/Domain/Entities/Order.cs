@@ -4,7 +4,7 @@ using TopStyle_Api.Domain.Identity;
 
 namespace TopStyle_Api.Domain.Entities
 {
-    public class Order
+    public class Order : OrderCreate
     {
         [Key]
         public int OrderId { get; set; }

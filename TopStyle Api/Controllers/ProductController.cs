@@ -71,6 +71,21 @@ namespace TopStyle_Api.Controllers
             return Ok(deletedProduct);
         }
 
-        
+        [HttpGet]
+        [Route("Search/{title}")]
+
+        public async Task<IActionResult> SearchProduct(string title)
+        {
+            var products = await _productService.GetProductByTitleAsync(title);
+
+            if (products == null || products.Count() <= 0)
+            {
+                return NotFound("No products found with that title");
+            }
+
+            return Ok(products);
+        }
+
+
     }
 }

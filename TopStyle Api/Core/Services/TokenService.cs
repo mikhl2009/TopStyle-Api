@@ -19,33 +19,52 @@ namespace TopStyle_Api.Core.Services
         {
             _configuration = configuration;
         }
-
-        public string CreateToken(ApplicationUser user)
+        public string CreateToken(string userId)
         {
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.Email, user.Email)
-               
-            };
-
+            var tokenHandler = new JwtSecurityTokenHandler();
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtConfig:Secret"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
-            var expiry = DateTime.Now.AddDays(1);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(claims),
-                Expires = expiry,
+                Subject = new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, userId) }),
+                Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = creds,
                 Issuer = _configuration["JwtConfig:Issuer"],
                 Audience = _configuration["JwtConfig:Audience"]
             };
 
-            var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
+            return tokenHandler.WriteToken(token); // Serialize and return the token
         }
+
+
+        //public string CreateToken(ApplicationUser user)
+        //{
+        //    var claims = new List<Claim>
+        //    {
+        //        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+        //        new Claim(ClaimTypes.Name, user.UserName),
+        //        new Claim(ClaimTypes.Email, user.Email)
+
+        //    };
+
+        //    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtConfig:Secret"]));
+        //    var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
+        //    var expiry = DateTime.Now.AddDays(1);
+
+        //    var tokenDescriptor = new SecurityTokenDescriptor
+        //    {
+        //        Subject = new ClaimsIdentity(claims),
+        //        Expires = expiry,
+        //        SigningCredentials = creds,
+        //        Issuer = _configuration["JwtConfig:Issuer"],
+        //        Audience = _configuration["JwtConfig:Audience"]
+        //    };
+
+        //    var tokenHandler = new JwtSecurityTokenHandler();
+        //    var token = tokenHandler.CreateToken(tokenDescriptor);
+        //    return tokenHandler.WriteToken(token);
+        //}
     }
 }

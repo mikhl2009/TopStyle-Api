@@ -9,6 +9,7 @@ namespace TopStyle_Api.Data.Interfaces
         public Task<Product> AddProduct(Product product);
         public Task<Product> UpdateProduct(Product product);
         public Task<Product> DeleteProduct(int id);
+        public Task<IEnumerable<Product>> GetProductByTitleAsync(string title);
 
     }
 }

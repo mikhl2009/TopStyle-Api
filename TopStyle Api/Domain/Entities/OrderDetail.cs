@@ -23,5 +23,7 @@ namespace TopStyle_Api.Domain.Entities
 
         [Required]
         public decimal Price { get; set; }
+
+        public decimal TotalPrice => Price * Quantity;
     }
 }

@@ -38,6 +38,13 @@ namespace TopStyle_Api.Data.Repos
             return await _context.Products.FindAsync(id);
         }
 
+        public async Task<IEnumerable<Product>> GetProductByTitleAsync(string title)
+        {
+            return await _context.Products
+         .Where(r => r.Name.Contains(title))
+         .ToListAsync();
+        }
+
         public async Task<IEnumerable<Product>> GetProducts()
         {
             return await _context.Products.ToListAsync();
