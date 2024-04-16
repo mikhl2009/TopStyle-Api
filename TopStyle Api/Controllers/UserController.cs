@@ -79,7 +79,6 @@ namespace TopStyle_Api.Controllers
                 return Unauthorized("Invalid username.");
             }
 
-            // Enable lockout on failure to prevent brute force attacks
             var result = await _signInManager.CheckPasswordSignInAsync(user, userLoginDTO.Password, lockoutOnFailure: true);
             if (!result.Succeeded)
             {

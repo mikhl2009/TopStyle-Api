@@ -7,16 +7,12 @@ namespace TopStyle_Api.Core.Interfaces
     public interface IUserService
     {
         Task<IEnumerable<ApplicationUser>> GetUsers();
-        Task<ApplicationUser> GetUserById(string id);  // Identity typically uses string for IDs
-        Task AddUser(ApplicationUser user, string password);  // Include password if directly handling user creation
+        Task<ApplicationUser> GetUserById(string id); 
+        Task AddUser(ApplicationUser user, string password);  
         Task<ApplicationUser> UpdateUser(ApplicationUser user);
-        Task<bool> DeleteUser(string id);  // It might be more practical to return a bool to indicate success
+        Task<bool> DeleteUser(string id); 
         Task<ApplicationUser> Register(UserRegisterDTO userRegisterDTO);
         Task<string> Login(UserLoginDTO userLoginDTO);
         Task <bool> IsUserLoggedIn();
-
-        
-
-        //Task<string> GetUserId();
     }
 }

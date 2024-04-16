@@ -24,7 +24,7 @@ namespace TopStyle_Api.Data.Repos
         {
             return await _context.OrderDetails
             .Where(od => od.OrderId == orderId)
-            .Include(od => od.Product)  // Ensure you include Product if you want to display product details.
+            .Include(od => od.Product)
             .ToListAsync();
         }
     }

@@ -13,14 +13,10 @@ namespace TopStyle_Api.Core.Services
     public class OrderService : IOrderService
     {
         private readonly IOrderRepo _orderRepo;
-        private readonly IMapper _mapper;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public OrderService(IOrderRepo orderRepo, IMapper mapper, IHttpContextAccessor httpContextAccessor)
+        public OrderService(IOrderRepo orderRepo)
         {
-            _orderRepo = orderRepo ?? throw new ArgumentNullException(nameof(orderRepo));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
+            _orderRepo = orderRepo;
         }
 
         public async Task CreateOrder(CreateOrderDto createOrderDto, string userId)
@@ -48,7 +44,6 @@ namespace TopStyle_Api.Core.Services
             }
             catch (Exception ex)
             {
-                // Handle exceptions (log them, manage transaction rollback, etc.)
                 throw new InvalidOperationException("Failed to create order", ex);
             }
         }

@@ -53,10 +53,8 @@ public class UserRepo : IUserRepo
         var existingUser = await _userManager.FindByIdAsync(user.Id);
         if (existingUser != null)
         {
-            // Update properties as needed
             existingUser.Email = user.Email;
             existingUser.UserName = user.UserName;
-            // Apply other updates as needed
 
             var result = await _userManager.UpdateAsync(existingUser);
             if (result.Succeeded)

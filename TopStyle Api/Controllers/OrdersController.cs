@@ -21,10 +21,10 @@ public class OrdersController : ControllerBase
     }
 
     [HttpPost("Create")]
-    [Authorize] // Ensures that only authenticated users can access this endpoint.
+    [Authorize] 
     public async Task<IActionResult> Create(CreateOrderDto createOrderDto)
     {
-        // Retrieve the user ID from the claims of the authenticated user
+      
         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
         if (string.IsNullOrEmpty(userId))
@@ -35,7 +35,7 @@ public class OrdersController : ControllerBase
 
         try
         {
-            // Pass the user ID to the service
+          
             await _orderService.CreateOrder(createOrderDto, userId);
             return Ok("Order created successfully.");
         }

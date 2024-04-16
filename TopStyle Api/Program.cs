@@ -31,9 +31,11 @@ builder.Services.AddControllers();
 builder.Services.AddServices();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSwaggerGen(c =>
-{c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+    {
+        Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
         Name = "Authorization",
         In = ParameterLocation.Header,
         Type = SecuritySchemeType.ApiKey,
@@ -67,10 +69,11 @@ app.UseAuthorization();
 
 app.UseSwagger();
 app.UseSwaggerUI(c =>
-{ c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
     c.RoutePrefix = string.Empty;
 });
 
-app.UseEndpoints(endpoints =>{endpoints.MapControllers();});
+app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
 app.Run();

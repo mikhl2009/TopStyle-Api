@@ -30,7 +30,6 @@ namespace TopStyle_Api.Extentions
             {
                 config.AddDebug();
                 config.AddConsole();
-                // Other logging providers as needed
             });
 
         }
