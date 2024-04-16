@@ -9,11 +9,11 @@ using TopStyle_Api.Data;
 
 #nullable disable
 
-namespace TopStyle_Api.Data.Migrations
+namespace TopStyle_Api.Migrations
 {
     [DbContext(typeof(TopStyleDbContext))]
-    [Migration("20240415181430_UpdateOrderdetailentity")]
-    partial class UpdateOrderdetailentity
+    [Migration("20240416091727_db")]
+    partial class db
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

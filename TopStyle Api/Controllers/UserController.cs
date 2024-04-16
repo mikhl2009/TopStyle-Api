@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using TopStyle_Api.Core.Interfaces;
 using TopStyle_Api.Domain.DTO;
 using TopStyle_Api.Domain.Identity;
@@ -49,34 +49,27 @@ namespace TopStyle_Api.Controllers
             return Ok("User registered successfully.");
         }
 
+        [HttpGet("Me")]
+        [Authorize]
+        public async Task<IActionResult> GetMyInfo()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = await _userManager.FindByIdAsync(userId);
 
-        //[HttpPost("login")]
-        //public async Task<IActionResult> Login(UserLoginDTO userLoginDTO)
-        //{
-        //    var user = await _userManager.FindByNameAsync(userLoginDTO.Username);
-        //    if (user == null)
-        //    {
-        //        return Unauthorized("Invalid username.");
-        //    }
+            if (user == null)
+                return NotFound("User not found.");
 
-        //    var result = await _signInManager.CheckPasswordSignInAsync(user, userLoginDTO.Password, lockoutOnFailure: false);
-        //    if (!result.Succeeded)
-        //    {
-        //        return Unauthorized("Invalid password.");
-        //    }
+            var userInfo = new
+            {
+                user.UserName,
+                user.Email,
+                
+            };
 
-        //    var token = _tokenService.CreateToken(user);
-        //    return Ok(new { Token = token });
-        //}
+            return Ok(userInfo);
+        }
 
-        //// check if user is authenticated
-        //[HttpGet("authenticated")]
-        //public async Task<IActionResult> IsAuthenticated()
-        //{
-        //    var authenticated = User.Identity.IsAuthenticated;
-        //    var user = await _userManager.FindByNameAsync(User.Identity.Name);
-        //    return Ok(new { Authenticated = authenticated, Username = user.UserName });
-        //} 
+        
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserLoginDTO userLoginDTO)
         {

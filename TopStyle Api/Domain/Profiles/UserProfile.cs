@@ -14,6 +14,8 @@ namespace TopStyle_Api.Domain.Profiles
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Username))
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email));
 
+            CreateMap<ApplicationUser,UserLoginDTO >();
+
             CreateMap<UserLoginDTO, ApplicationUser>();
             CreateMap<ApplicationUser, UserLoginDTO>();
 
